@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    card_view:cardCornerRadius="5dp">
+
+
+   <TextView
+       android:id="@+id/sources_name"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="@android:style/TextAppearance.Large"
+       android:fontFamily="sans-serif-condensed"
+       android:textStyle="bold"
+       android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/sources_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sources_name"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        />
+
+    <TextView
+        android:id="@+id/sources_category"
+        android:layout_below="@id/sources_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="@android:style/TextAppearance.Small"/>
+
+
+</android.support.v7.widget.CardView>
