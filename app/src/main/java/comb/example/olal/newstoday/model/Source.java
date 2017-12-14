@@ -1,4 +1,4 @@
-package comb.example.olal.newstoday;
+package comb.example.olal.newstoday.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +12,9 @@ public class Source {
     private String name;
     private String description;
     private String category;
+    private String url;
+    private String urlToImage;
+    private String publishedAt;
 
     public String getName() {
         return name;
@@ -23,5 +26,18 @@ public class Source {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getUrl(){
+        return url;
+    }
+
+    public String getUrlToImage(){
+        return urlToImage;
+    }
+
+
+    public String getPublishedAt(){
+        return publishedAt;
     }
 }

@@ -9,21 +9,14 @@ import android.view.ViewGroup;
 
 import comb.example.olal.newstoday.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TechFragment extends Fragment {
+public class GeneralFragment extends Fragment {
 
 
-    public TechFragment() {
+    public GeneralFragment() {
         // Required empty public constructor
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
 
@@ -31,7 +24,7 @@ public class TechFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tech, container, false);
+        return inflater.inflate(R.layout.fragment_general, container, false);
     }
 
 }
