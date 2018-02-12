@@ -2,65 +2,84 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    card_view:cardCornerRadius="5dp">
+    android:layout_marginTop="5dp"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="5dp"
+    >
 
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="10dp"
+      android:orientation="vertical"
+      >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_url"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"/>
+
+  </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/sources_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        />
+
+    <TextView
+        android:id="@+id/sources_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sources_name"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
+      <TextView
+          android:id="@+id/sources_name"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@id/sources_description"
+          android:layout_weight="0.4"
+          android:fontFamily="sans-serif-condensed"
+          android:textAppearance="@android:style/TextAppearance.Small"
+          android:textColor="@color/colorAccent"
+          android:textStyle="bold"
+          />
 
-        <TextView
-            android:id="@+id/sources_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/sources_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/sources_name"
-            android:layout_centerInParent="true"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="@android:style/TextAppearance.Medium"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/sources_category"
-            android:layout_below="@id/sources_description"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="@android:style/TextAppearance.Small"/>
-
-            <TextView
-                android:id="@+id/sources_publishedAt"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"/>
-        </LinearLayout>
+      <TextView
+          android:id="@+id/sources_publishedAt"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.6"
+          android:textAppearance="@android:style/TextAppearance.Small"
+          />
     </LinearLayout>
+  </LinearLayout>
 
 
 </android.support.v7.widget.CardView>
