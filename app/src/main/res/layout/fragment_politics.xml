@@ -1,15 +1,27 @@
-<LinearLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comb.example.olal.newstoday.fragment.PoliticsFragment">
+    tools:context="comb.example.olal.newstoday.fragment.PoliticsFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/politics_card_recycler_view"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+  <!-- TODO: Update blank fragment layout -->
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/politics_card_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scrollbars="vertical"
+      />
 
-</LinearLayout>
+  <TextView
+      android:id="@+id/disconnected"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="internet"
+      android:textSize="30sp"
+      android:textStyle="bold"
+      />
+
+</android.support.v4.widget.SwipeRefreshLayout>

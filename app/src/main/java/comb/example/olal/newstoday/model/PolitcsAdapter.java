@@ -1,11 +1,15 @@
 package comb.example.olal.newstoday.model;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -37,13 +41,20 @@ public class PolitcsAdapter extends RecyclerView.Adapter<PolitcsAdapter.ViewHold
   }
 
   @Override public void onBindViewHolder(PolitcsAdapter.ViewHolder viewHolder, int position) {
-    Article article = articles.get(position);
+    final Article article = articles.get(position);
     viewHolder.sourcesTitle.setText(article.getTitle());
     viewHolder.sourcesName.setText(article.getPoliticssource().getName());
     viewHolder.sourcesDescription.setText(article.getDescription());
     viewHolder.sourcesPublishedAt.setText(article.getPublishedAt());
-
     Picasso.with(activity).load(article.getUrlToImage()).into(viewHolder.sourcesImage);
+    viewHolder.main.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getUrl()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+      }
+    });
+
   }
 
   @Override public int getItemCount() {
@@ -52,8 +63,9 @@ public class PolitcsAdapter extends RecyclerView.Adapter<PolitcsAdapter.ViewHold
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView sourcesName, sourcesDescription, sourcesPublishedAt, sourcesTitle;
+    private TextView sourcesName, sourcesDescription, sourcesPublishedAt, sourcesTitle, sourceUrl;
     private ImageView sourcesImage;
+    private LinearLayout main;
 
     public ViewHolder(View itemView) {
       super(itemView);
@@ -61,7 +73,14 @@ public class PolitcsAdapter extends RecyclerView.Adapter<PolitcsAdapter.ViewHold
       sourcesTitle = (TextView) itemView.findViewById(R.id.sources_title);
       sourcesName = (TextView) itemView.findViewById(R.id.sources_name);
       sourcesDescription = (TextView) itemView.findViewById(R.id.sources_description);
-      sourcesPublishedAt = (TextView) itemView.findViewById(R.id.sources_publishedAt);
+      sourcesPublishedAt = (TextView) itemView.findViewById(R.id.sources_publishedAt);;
+      main = (LinearLayout) itemView.findViewById(R.id.main);
+
+
+
+
     }
   }
+
+
 }
