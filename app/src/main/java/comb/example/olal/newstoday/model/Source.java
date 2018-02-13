@@ -1,43 +1,35 @@
 package comb.example.olal.newstoday.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by olal on 9/5/17.
+ * Created by olal on 12/14/17.
  */
 
 public class Source {
 
-//    @SerializedName("source")
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("name")
+    @Expose
     private String name;
-    private String description;
-    private String category;
-    private String url;
-    private String urlToImage;
-    private String publishedAt;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public String getUrl(){
-        return url;
-    }
-
-    public String getUrlToImage(){
-        return urlToImage;
-    }
-
-
-    public String getPublishedAt(){
-        return publishedAt;
-    }
 }

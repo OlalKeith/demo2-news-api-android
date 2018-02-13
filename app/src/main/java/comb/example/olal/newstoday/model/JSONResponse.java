@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by olal on 9/5/17.
+ * Created by olal on 12/14/17.
  */
 
 public class JSONResponse {
@@ -14,9 +14,12 @@ public class JSONResponse {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("sources")
+    @SerializedName("totalResults")
     @Expose
-    private List<Source> sources = null;
+    private Integer totalResults;
+    @SerializedName("articles")
+    @Expose
+    private List<Article> articles = null;
 
     public String getStatus() {
         return status;
@@ -26,14 +29,20 @@ public class JSONResponse {
         this.status = status;
     }
 
-    public List<Source> getSources() {
-        return sources;
+    public Integer getTotalResults() {
+        return totalResults;
     }
 
-    public void setSources(List<Source> sources) {
-        this.sources = sources;
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
 
+    public List<Article> getArticles() {
+        return articles;
+    }
 
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
 
 }

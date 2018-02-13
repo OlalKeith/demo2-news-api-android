@@ -1,7 +1,6 @@
 package comb.example.olal.newstoday.api;
 
 import comb.example.olal.newstoday.model.JSONResponse;
-import comb.example.olal.newstoday.model.PoliticsJSONResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -11,9 +10,9 @@ import retrofit2.http.GET;
 
 public interface NewsApiInterface {
 
-    @GET("/v2/sources?language=en&category=technology&apiKey=f1e6b2116c774240b3f3962e89a00817")
-    Call<JSONResponse> getTechSources();
+  @GET("/v2/top-headlines?country=us&category=business&apiKey=f1e6b2116c774240b3f3962e89a00817")
+  Call<JSONResponse> getbusinessSources();
 
-    @GET("/v2/everything?sources=breitbart-news,politico,the-hill&apiKey=f1e6b2116c774240b3f3962e89a00817")
-    Call<PoliticsJSONResponse> getPoliticsSources();
+  @GET("/v2/everything?sources=breitbart-news,politico,the-hill&apiKey=f1e6b2116c774240b3f3962e89a00817")
+  Call<JSONResponse> getPoliticsSources();
 }

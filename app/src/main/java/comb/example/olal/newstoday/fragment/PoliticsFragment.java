@@ -1,15 +1,11 @@
 package comb.example.olal.newstoday.fragment;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +14,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import comb.example.olal.newstoday.R;
-import comb.example.olal.newstoday.SourcesAdapter;
 import comb.example.olal.newstoday.api.NewsApiInterface;
 import comb.example.olal.newstoday.model.Article;
+import comb.example.olal.newstoday.model.PoliticsAdapter;
 import comb.example.olal.newstoday.model.JSONResponse;
-import comb.example.olal.newstoday.model.PolitcsAdapter;
-import comb.example.olal.newstoday.model.PoliticsJSONResponse;
-import comb.example.olal.newstoday.model.Source;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +35,7 @@ public class PoliticsFragment extends Fragment {
 
   private RecyclerView recyclerView;
   private List<Article> datalist = new ArrayList<Article>();
-  private PolitcsAdapter adapter;
+  private PoliticsAdapter adapter;
   ProgressDialog pd;
   private SwipeRefreshLayout swipeRefreshLayout;
   TextView Disconnected;
@@ -92,14 +84,14 @@ public class PoliticsFragment extends Fragment {
         .addConverterFactory(GsonConverterFactory.create())
         .build();
     NewsApiInterface apiInterface = retrofit.create(NewsApiInterface.class);
-    Call<PoliticsJSONResponse> call = apiInterface.getPoliticsSources();
+    Call<JSONResponse> call = apiInterface.getPoliticsSources();
 
-    call.enqueue(new Callback<PoliticsJSONResponse>() {
-      @Override public void onResponse(Call<PoliticsJSONResponse> call,
-          Response<PoliticsJSONResponse> response) {
-        PoliticsJSONResponse jsonResponse = response.body();
+    call.enqueue(new Callback<JSONResponse>() {
+      @Override public void onResponse(Call<JSONResponse> call,
+          Response<JSONResponse> response) {
+        JSONResponse jsonResponse = response.body();
         datalist = jsonResponse.getArticles();
-        adapter = new PolitcsAdapter(getActivity(), datalist);
+        adapter = new PoliticsAdapter(getActivity(), datalist);
         RecyclerView.LayoutManager mlayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setAdapter(adapter);
@@ -108,7 +100,7 @@ public class PoliticsFragment extends Fragment {
         pd.hide();
       }
 
-      @Override public void onFailure(Call<PoliticsJSONResponse> call, Throwable t) {
+      @Override public void onFailure(Call<JSONResponse> call, Throwable t) {
         Log.d("Error", t.getMessage());
         Toast.makeText(getActivity(), "Error Fetching Data!", Toast.LENGTH_SHORT).show();
         //Disconnected.setVisibility(View.VISIBLE);
@@ -124,11 +116,6 @@ public class PoliticsFragment extends Fragment {
     }
 
 
-
-  //public void politics_card(View view) {
-  //
-  //  Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(new ))
-  //}
 }
 
 

@@ -1,5 +1,6 @@
 package comb.example.olal.newstoday.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,79 +10,75 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Toast;
+import comb.example.olal.newstoday.model.Article;
+import comb.example.olal.newstoday.model.JSONResponse;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import comb.example.olal.newstoday.api.NewsApiInterface;
 import comb.example.olal.newstoday.R;
-import comb.example.olal.newstoday.model.Source;
-import comb.example.olal.newstoday.SourcesAdapter;
-import comb.example.olal.newstoday.model.JSONResponse;
+import comb.example.olal.newstoday.model.BusinessAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class BusinessFragment extends Fragment {
 
-private RecyclerView recyclerView;
-private List<Source> datalist = new ArrayList<Source>();
-private SourcesAdapter adapter;
+  private RecyclerView recyclerView;
+  private List<Article> datalist = new ArrayList<Article>();
+  private BusinessAdapter adapter;
+  ProgressDialog pd;
 
-    public BusinessFragment() {
-        // Required empty public constructor
-    }
+  public BusinessFragment() {
+    // Required empty public constructor
+  }
 
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    // Inflate the layout for this fragment
+    View view = inflater.inflate(R.layout.fragment_business, container, false);
 
+    pd = new ProgressDialog(getContext());
+    pd.setMessage("Fetching News Data...");
+    pd.setCancelable(false);
+    pd.show();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_business, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.news_card_recycler_view);
-        loadJSON();
-        adapter = new SourcesAdapter(getActivity(), datalist);
+    recyclerView = (RecyclerView) view.findViewById(R.id.news_card_recycler_view);
+    adapter = new BusinessAdapter(getActivity(), datalist);
+    loadJSON();
+    return view;
+  }
+
+  private void loadJSON() {
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://newsapi.org")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
+    NewsApiInterface apiInterface = retrofit.create(NewsApiInterface.class);
+    Call<JSONResponse> call = apiInterface.getbusinessSources();
+
+    call.enqueue(new Callback<JSONResponse>() {
+      @Override public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+        JSONResponse jsonResponse = response.body();
+        datalist = jsonResponse.getArticles();
+        adapter = new BusinessAdapter(getContext(),datalist);
         RecyclerView.LayoutManager mlayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setAdapter(adapter);
-        return view;
-    }
-        private void loadJSON(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://newsapi.org")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        NewsApiInterface apiInterface = retrofit.create(NewsApiInterface.class);
-        Call<JSONResponse> call = apiInterface.getTechSources();
+        pd.hide();
+      }
 
-        call.enqueue(new Callback<JSONResponse>() {
-            @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-                JSONResponse jsonResponse = response.body();
-                datalist = jsonResponse.getSources();
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
-                Log.d("Error",t.getMessage());
-
-            }
-        });
-
-    }
-
-
-
-
-
-
+      @Override public void onFailure(Call<JSONResponse> call, Throwable t) {
+        Log.d("Error", t.getMessage());
+        Toast.makeText(getContext(), "Error Fetching Data!", Toast.LENGTH_SHORT).show();
+        pd.hide();
+      }
+    });
+  }
 }

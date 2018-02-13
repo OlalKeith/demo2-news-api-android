@@ -3,7 +3,6 @@ package comb.example.olal.newstoday.model;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,34 +12,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
 import java.util.List;
 
 import comb.example.olal.newstoday.R;
-import comb.example.olal.newstoday.SourcesAdapter;
 
 /**
  * Created by olal on 12/13/17.
  */
 
-public class PolitcsAdapter extends RecyclerView.Adapter<PolitcsAdapter.ViewHolder> {
+public class PoliticsAdapter extends RecyclerView.Adapter<PoliticsAdapter.ViewHolder> {
 
   public Activity activity;
   private List<Article> articles;
 
-  public PolitcsAdapter(Activity activity, List<Article> articles) {
+  public PoliticsAdapter(Activity activity, List<Article> articles) {
 
     this.articles = articles;
     this.activity = activity;
   }
 
-  @Override public PolitcsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+  @Override public PoliticsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
     View view = LayoutInflater.from(viewGroup.getContext())
         .inflate(R.layout.politics_card, viewGroup, false);
     return new ViewHolder(view);
   }
 
-  @Override public void onBindViewHolder(PolitcsAdapter.ViewHolder viewHolder, int position) {
+  @Override public void onBindViewHolder(PoliticsAdapter.ViewHolder viewHolder, int position) {
     final Article article = articles.get(position);
     viewHolder.sourcesTitle.setText(article.getTitle());
     viewHolder.sourcesName.setText(article.getPoliticssource().getName());
