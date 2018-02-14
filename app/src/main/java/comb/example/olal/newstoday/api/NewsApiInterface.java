@@ -18,4 +18,12 @@ public interface NewsApiInterface {
 
   @GET("/v2/top-headlines?country=gb&category=technology&apiKey=f1e6b2116c774240b3f3962e89a00817")
   Call<JSONResponse> getTechSources();
+
+  @GET("/v2/top-headlines?country=ng&category=sport&apiKey=f1e6b2116c774240b3f3962e89a00817")
+  Call<JSONResponse> getSportSources();
+
+  @GET("/v2/top-headlines?country=us&category=general&apiKey=f1e6b2116c774240b3f3962e89a00817")
+  Call<JSONResponse> getGeneralSources();
+
+
 }

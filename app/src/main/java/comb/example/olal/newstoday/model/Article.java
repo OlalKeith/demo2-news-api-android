@@ -12,7 +12,7 @@ public class Article {
 
     @SerializedName("source")
     @Expose
-    private Source politicssource;
+    private Source source;
     @SerializedName("author")
     @Expose
     private String author;
@@ -32,12 +32,12 @@ public class Article {
     @Expose
     private String publishedAt;
 
-    public Source getPoliticssource() {
-        return politicssource;
+    public Source getSource() {
+        return source;
     }
 
-    public void setPoliticssource(Source politicssource) {
-        this.politicssource = politicssource;
+    public void setSource(Source source) {
+        this.source = source;
     }
 
     public String getAuthor() {

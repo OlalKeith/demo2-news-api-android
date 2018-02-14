@@ -1,6 +1,5 @@
 package comb.example.olal.newstoday.model;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -43,7 +42,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
   @Override public void onBindViewHolder(BusinessAdapter.ViewHolder viewHolder, int position) {
     final Article article = articles.get(position);
     viewHolder.sourcesTitle.setText(article.getTitle());
-    viewHolder.sourcesName.setText(article.getPoliticssource().getName());
+    viewHolder.sourcesName.setText(article.getSource().getName());
     viewHolder.sourcesDescription.setText(article.getDescription());
     viewHolder.sourcesPublishedAt.setText(article.getPublishedAt());
     Picasso.with(mContext).load(article.getUrlToImage()).into(viewHolder.sourcesImage);

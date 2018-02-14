@@ -40,7 +40,7 @@ public class PoliticsAdapter extends RecyclerView.Adapter<PoliticsAdapter.ViewHo
   @Override public void onBindViewHolder(PoliticsAdapter.ViewHolder viewHolder, int position) {
     final Article article = articles.get(position);
     viewHolder.sourcesTitle.setText(article.getTitle());
-    viewHolder.sourcesName.setText(article.getPoliticssource().getName());
+    viewHolder.sourcesName.setText(article.getSource().getName());
     viewHolder.sourcesDescription.setText(article.getDescription());
     viewHolder.sourcesPublishedAt.setText(article.getPublishedAt());
     Picasso.with(activity).load(article.getUrlToImage()).into(viewHolder.sourcesImage);
