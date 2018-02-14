@@ -15,13 +15,13 @@
       android:scrollbars="vertical"
       />
 
-  <TextView
-      android:id="@+id/disconnected"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="internet"
-      android:textSize="30sp"
-      android:textStyle="bold"
-      />
+  <!--<TextView-->
+      <!--android:id="@+id/disconnected"-->
+      <!--android:layout_width="match_parent"-->
+      <!--android:layout_height="wrap_content"-->
+      <!--android:text="internet"-->
+      <!--android:textSize="30sp"-->
+      <!--android:textStyle="bold"-->
+      <!--/>-->
 
 </android.support.v4.widget.SwipeRefreshLayout>

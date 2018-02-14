@@ -3,6 +3,7 @@ package comb.example.olal.newstoday.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,8 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GeneralFragment extends Fragment {
+public class GeneralFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
+  private SwipeRefreshLayout swipeRefreshLayout;
   private RecyclerView recyclerView;
   private List<Article> datalist = new ArrayList<>();
   private GeneralAdapter adapter;
@@ -43,6 +45,18 @@ public class GeneralFragment extends Fragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_general, container, false);
+    swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+    swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+    swipeRefreshLayout.setOnRefreshListener(this);
+
+    swipeRefreshLayout.post(new Runnable() {
+      @Override public void run() {
+
+        swipeRefreshLayout.setRefreshing(true);
+        loadJSON();
+
+      }
+    });
 
     pd = new ProgressDialog(getContext());
     pd.setMessage("Fetching News Data...");
@@ -56,7 +70,15 @@ public class GeneralFragment extends Fragment {
   }
 
 
+  @Override public void onRefresh() {
+    Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
+    loadJSON();
+  }
+
+
   private void loadJSON(){
+    // showing refresh animation before making http call
+    swipeRefreshLayout.setRefreshing(true);
 
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://newsapi.org")
         .addConverterFactory(GsonConverterFactory.create())
@@ -73,15 +95,23 @@ public class GeneralFragment extends Fragment {
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setAdapter(adapter);
         pd.hide();
+
+        // stopping swipe refresh
+        swipeRefreshLayout.setRefreshing(false);
       }
 
       @Override public void onFailure(Call<JSONResponse> call, Throwable t) {
         Log.d("Error", t.getMessage());
         Toast.makeText(getContext(), "Error Fetching Data!", Toast.LENGTH_SHORT).show();
+        pd.hide();
+
+        // stopping swipe refresh
+        swipeRefreshLayout.setRefreshing(false);
 
       }
     });
 
 
   }
+
 }

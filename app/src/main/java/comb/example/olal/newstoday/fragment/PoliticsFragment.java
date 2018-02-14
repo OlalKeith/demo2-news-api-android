@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by olal on 11/27/17.
  */
 
-public class PoliticsFragment extends Fragment {
+public class PoliticsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
   private RecyclerView recyclerView;
   private List<Article> datalist = new ArrayList<Article>();
@@ -57,11 +57,17 @@ public class PoliticsFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_politics, container, false);
     swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
     swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-      @Override public void onRefresh() {
-        Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
+    swipeRefreshLayout.setOnRefreshListener(this);
+
+    swipeRefreshLayout.post(new Runnable() {
+      @Override public void run() {
+
+        swipeRefreshLayout.setRefreshing(true);
+        loadJSON();
+
       }
     });
+
 
     pd = new ProgressDialog(getActivity());
     pd.setMessage("Fetching News Data...");
@@ -77,11 +83,15 @@ public class PoliticsFragment extends Fragment {
   }
 
 
+  @Override public void onRefresh() {
 
+    Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
+    loadJSON();
+  }
 
   private void loadJSON() {
     //Disconnected = (TextView)recyclerView.findViewById(R.id.disconnected);
-    try {
+    swipeRefreshLayout.setRefreshing(true);
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://newsapi.org")
         .addConverterFactory(GsonConverterFactory.create())
         .build();
@@ -98,8 +108,9 @@ public class PoliticsFragment extends Fragment {
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.smoothScrollToPosition(0);
-        swipeRefreshLayout.setRefreshing(false);
         pd.hide();
+
+        swipeRefreshLayout.setRefreshing(false);
       }
 
       @Override public void onFailure(Call<JSONResponse> call, Throwable t) {
@@ -108,17 +119,15 @@ public class PoliticsFragment extends Fragment {
         //Disconnected.setVisibility(View.VISIBLE);
         pd.hide();
 
+        swipeRefreshLayout.setRefreshing(false);
+
       }
     });
-  }catch (Exception e){
-      Log.d("Error", e.getMessage());
-      Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-    }
-
-    }
+  }
 
 
 }
+
 
 
 /*DO I NEED THE TRY/CATCH HERE*/
