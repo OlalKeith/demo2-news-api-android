@@ -1,6 +1,5 @@
 package comb.example.olal.newstoday.model;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,39 +7,39 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 import comb.example.olal.newstoday.R;
 import java.util.List;
 
 /**
- * Created by olal on 9/5/17.
+ * Created by olal on 2/14/18.
  */
 
-//ViewHolder IS USED TO SPEED UP RENDERING OF YOUR LISTVIEW
-
-public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHolder> {
+public class TechAdapter extends RecyclerView.Adapter<TechAdapter.ViewHolder> {
 
   public Context mContext;
   private List<Article> articles;
 
-  public BusinessAdapter(Context mContext, List<Article> articles) {
+  public TechAdapter(Context mContext, List<Article> articles){
 
     this.articles = articles;
     this.mContext = mContext;
   }
 
-  @Override public BusinessAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-    //        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.sources_list,viewGroup,false);
+  @Override
+  public TechAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
     View view = LayoutInflater.from(viewGroup.getContext())
-        .inflate(R.layout.business_card, viewGroup, false);
+        .inflate(R.layout.tech_card, viewGroup, false);
     return new ViewHolder(view);
   }
 
-  @Override public void onBindViewHolder(BusinessAdapter.ViewHolder viewHolder, int position) {
+  @Override
+  public void onBindViewHolder(TechAdapter.ViewHolder viewHolder, int position) {
     final Article article = articles.get(position);
     viewHolder.sourcesTitle.setText(article.getTitle());
     viewHolder.sourcesName.setText(article.getPoliticssource().getName());
@@ -48,9 +47,6 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
     viewHolder.sourcesPublishedAt.setText(article.getPublishedAt());
     Picasso.with(mContext).load(article.getUrlToImage()).into(viewHolder.sourcesImage);
 
-    //if (Picasso != null){
-    //  Picasso.
-    //}
     viewHolder.main.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getUrl()));
@@ -58,20 +54,22 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
         mContext.startActivity(intent);
       }
     });
+
   }
 
   @Override public int getItemCount() {
     return articles.size();
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
-
+  public class ViewHolder extends RecyclerView.ViewHolder{
     private TextView sourcesName, sourcesDescription, sourcesTitle, sourcesPublishedAt;
     private ImageView sourcesImage;
     private LinearLayout main;
 
+
     public ViewHolder(View itemView) {
       super(itemView);
+
       sourcesImage = (ImageView) itemView.findViewById(R.id.image_url);
       sourcesTitle = (TextView) itemView.findViewById(R.id.sources_title);
       sourcesName = (TextView) itemView.findViewById(R.id.sources_name);

@@ -41,6 +41,8 @@ public class PoliticsFragment extends Fragment {
   TextView Disconnected;
   TextView Link;
   private List<Article> articles;
+
+
   public PoliticsFragment() {
     // Required empty public constructor
   }
